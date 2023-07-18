@@ -6,6 +6,6 @@
 
 <style lang="css" scoped>
 .search-input {
-  @apply text-xl rounded-sm w-5/12 py-1 px-2
+  @apply text-xl rounded-sm w-1/2 py-1 px-2 shadow-md
 }
 </style>

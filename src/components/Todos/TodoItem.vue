@@ -3,7 +3,7 @@ import CheckButton from "@/UI/Buttons/CheckButton.vue"
 import TrashBinButton from "@/UI/Buttons/TrashBinButton.vue";
 import { todoType } from "staticData/todos";
 
-const FONT_SIZE = "1.6em";
+const FONT_SIZE = "1.5em";
 
 type Props = {
   todo: todoType;
@@ -16,18 +16,16 @@ const { todo } = defineProps<Props>();
   <li class="todo-item">
     <div class="todo-description">{{ todo.text }} / {{ todo.date }}</div>
     <div class="todo-buttons">
-      <CheckButton :fontSize="FONT_SIZE" />
-      <TrashBinButton :fontSize="FONT_SIZE" />
+      <CheckButton :height="FONT_SIZE" />
+      <TrashBinButton :height="FONT_SIZE" />
     </div>
   </li>
 </template>
 
 <style scoped>
-svg {
-  fill: #fff;
-}
+
 .todo-item {
-  @apply flex justify-center items-center p-1 m-1 rounded bg-orange-400 gap-1;
+  @apply flex justify-center items-center py-1 px-1.5 m-1 rounded shadow-md gap-1 w-3/5;
 }
 
 .todo-buttons {

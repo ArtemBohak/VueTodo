@@ -10,6 +10,6 @@
 
 <style lang="css" scoped>
 select {
-  @apply py-1 px-2 text-lg border rounded-sm ;
+  @apply py-1 px-2 text-lg border rounded-sm shadow-md;
 }
 </style>

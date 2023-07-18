@@ -1,17 +1,16 @@
 <script setup lang="ts">
 type Props = {
-  fontSize: string;
+  height: string;
 };
 
-const { fontSize } = withDefaults(defineProps<Props>(), { fontSize: "1.5em" });
-console.log(fontSize)
+const { height } = withDefaults(defineProps<Props>(), { height: "1.5em" });
 </script>
 
 <template>
   <button class="trash-button">
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      :height="fontSize"
+      :height="height"
       viewBox="0 0 448 512"
     >
       <path
@@ -22,11 +21,7 @@ console.log(fontSize)
 </template>
 
 <style lang="css" scoped>
-svg {
-  fill: #ffffff;
-}
-
 .trash-button {
-  @apply p-1 bg-orange-500 rounded-sm;
+  @apply p-1 bg-orange-500 rounded-sm fill-white hover:fill-orange-400 hover:bg-white transition-all duration-300;
 }
 </style>

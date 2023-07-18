@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import TodoList from "./components/Todos/TodoList.vue";
 import SearchFilter from "./UI/SearchFilter/SearchFilter.vue"
+import AddButton from './UI/Buttons/AddButton.vue'
 
 </script>
 
@@ -11,6 +12,7 @@ import SearchFilter from "./UI/SearchFilter/SearchFilter.vue"
       <TodoList />
     </div>
   </div>
+  <AddButton />
 </template>
 
 <style scoped>
@@ -19,6 +21,6 @@ import SearchFilter from "./UI/SearchFilter/SearchFilter.vue"
 }
 
 .todo-app {
-  @apply w-3/5 h-[75vh] bg-orange-400 rounded p-2;
+  @apply w-3/5 h-[75vh] rounded p-2;
 }
 </style>
