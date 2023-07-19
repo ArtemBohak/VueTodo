@@ -1,14 +1,20 @@
 <script setup lang="ts">
+import { ref } from "vue";
+
+import AddTodoModal from "../ModalWindows/AddTodoModal.vue";
+
 type Props = { height: string };
 
-const { height } = withDefaults(defineProps<Props>(), { height: "2em" });
+const props = withDefaults(defineProps<Props>(), { height: "2em" });
+
+const isShown = ref<boolean>(false);
 </script>
 
 <template>
   <button class="add-button">
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      :height="height"
+      :height="props.height"
       viewBox="0 0 448 512"
     >
       <path
@@ -16,6 +22,7 @@ const { height } = withDefaults(defineProps<Props>(), { height: "2em" });
       />
     </svg>
   </button>
+  <AddTodoModal :isShown="isShown" />
 </template>
 
 <style lang="css" scoped>

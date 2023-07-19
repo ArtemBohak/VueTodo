@@ -3,14 +3,14 @@ type Props = {
   height: string;
 };
 
-const { height } = withDefaults(defineProps<Props>(), { height: "1.5em" });
+const props = withDefaults(defineProps<Props>(), { height: "1.5em" });
 </script>
 
 <template>
   <button class="trash-button">
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      :height="height"
+      :height="props.height"
       viewBox="0 0 448 512"
     >
       <path

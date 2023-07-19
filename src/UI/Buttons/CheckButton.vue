@@ -1,16 +1,19 @@
 <script setup lang="ts">
 type Props = {
   height: string;
+  isChecked: boolean;
 };
 
-const { height } = withDefaults(defineProps<Props>(), { height: "1.5em" });
+const props = withDefaults(defineProps<Props>(), {
+  height: "1.5em",
+});
 </script>
 
 <template>
-  <button class="check-button">
+  <button class="check-button" :class="{ active: props.isChecked }">
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      :height="height"
+      :height="props.height"
       viewBox="0 0 448 512"
     >
       <path
@@ -23,5 +26,9 @@ const { height } = withDefaults(defineProps<Props>(), { height: "1.5em" });
 <style lang="css" scoped>
 .check-button {
   @apply p-1 bg-green-500 rounded-sm fill-white hover:bg-white hover:fill-green-400 transition-all duration-300;
+}
+
+.check-button.active {
+  @apply bg-white fill-green-400 transition-all duration-300;
 }
 </style>

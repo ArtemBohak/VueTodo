@@ -1,31 +1,37 @@
 <script setup lang="ts">
-import CheckButton from "@/UI/Buttons/CheckButton.vue"
-import TrashBinButton from "@/UI/Buttons/TrashBinButton.vue";
 import { todoType } from "staticData/todos";
 
-const FONT_SIZE = "1.5em";
+import CheckButton from "@/UI/Buttons/CheckButton.vue";
+import TrashBinButton from "@/UI/Buttons/TrashBinButton.vue";
 
 type Props = {
   todo: todoType;
 };
-
-const { todo } = defineProps<Props>();
+const props = defineProps<Props>();
 </script>
 
 <template>
-  <li class="todo-item">
-    <div class="todo-description">{{ todo.text }} / {{ todo.date }}</div>
+  <li class="todo-item" :class="{ checked: props.todo.isChecked }">
+    <div class="todo-description">
+      {{ props.todo.text }} / {{ props.todo.date }}
+    </div>
     <div class="todo-buttons">
-      <CheckButton :height="FONT_SIZE" />
-      <TrashBinButton :height="FONT_SIZE" />
+      <CheckButton
+        @click="props.todo.isChecked = !props.todo.isChecked"
+        :isChecked="todo.isChecked"
+      />
+      <TrashBinButton @click="$emit('removeTodo', props.todo.id)" />
     </div>
   </li>
 </template>
 
 <style scoped>
-
 .todo-item {
   @apply flex justify-center items-center py-1 px-1.5 m-1 rounded shadow-md gap-1 w-3/5;
+}
+
+.todo-item.checked {
+  @apply line-through duration-500 transition-all;
 }
 
 .todo-buttons {

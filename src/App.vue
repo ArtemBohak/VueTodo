@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import TodoList from "./components/Todos/TodoList.vue";
 import SearchFilter from "./UI/SearchFilter/SearchFilter.vue"
-import AddButton from './UI/Buttons/AddButton.vue'
 
 </script>
 
@@ -12,7 +11,6 @@ import AddButton from './UI/Buttons/AddButton.vue'
       <TodoList />
     </div>
   </div>
-  <AddButton />
 </template>
 
 <style scoped>
