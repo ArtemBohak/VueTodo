@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { todoType } from "staticData/todos";
 
-import CheckButton from "@/UI/Buttons/CheckButton.vue";
-import TrashBinButton from "@/UI/Buttons/TrashBinButton.vue";
+import CheckButton from "../../UI/Buttons/CheckButton.vue";
+import TrashBinButton from "../../UI/Buttons/TrashBinButton.vue";
 
 type Props = {
   todo: todoType;
@@ -17,7 +17,7 @@ const props = defineProps<Props>();
     </div>
     <div class="todo-buttons">
       <CheckButton
-        @click="props.todo.isChecked = !props.todo.isChecked"
+        @click="props.todo.isChecked = !props.todo.isChecked" 
         :isChecked="todo.isChecked"
       />
       <TrashBinButton @click="$emit('removeTodo', props.todo.id)" />
