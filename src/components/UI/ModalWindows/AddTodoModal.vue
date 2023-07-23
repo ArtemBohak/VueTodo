@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, Transition } from "vue";
+import { reactive, Transition } from "vue";
 import { v4 as uuidv4 } from "uuid";
 
 import { todoType } from "staticData/todos";
@@ -16,8 +16,10 @@ type Emits = {
 
 const props = defineProps<Props>();
 const emit = defineEmits<Emits>();
-const todoText = ref<string>("");
-const todoDate = ref<string>("");
+const todoData = reactive<{ todoText: string; todoDate: string }>({
+  todoText: "",
+  todoDate: "",
+});
 
 const outerModalClick = (e: Event) => {
   if (e.target === e.currentTarget) {
@@ -30,9 +32,11 @@ const onSubmitHandle = () => {
   emit("addTodo", {
     id: id,
     isChecked: false,
-    date: todoDate.value,
-    text: todoText.value,
+    date: todoData.todoDate,
+    text: todoData.todoText,
   });
+  todoData.todoDate = "";
+  todoData.todoText = "";
 };
 </script>
 
@@ -42,10 +46,10 @@ const onSubmitHandle = () => {
       <div @click="outerModalClick" v-if="props.isShown" class="modal-outer">
         <form class="modal-inner" @submit.prevent="onSubmitHandle">
           <div class="inputs">
-            <AddTodoInput v-model="todoText" />
-            <AddTodoDate v-model="todoDate" />
+            <AddTodoInput v-model="todoData.todoText" />
+            <AddTodoDate v-model="todoData.todoDate" />
           </div>
-          <SubmitTodoButton>Add</SubmitTodoButton>
+          <SubmitTodoButton title="Add" />
         </form>
       </div>
     </Transition>
@@ -66,7 +70,7 @@ const onSubmitHandle = () => {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s ease;
+  transition: opacity 0.3s ease;
 }
 
 .fade-enter-from,

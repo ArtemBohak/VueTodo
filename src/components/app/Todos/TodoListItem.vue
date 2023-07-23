@@ -8,6 +8,15 @@ type Props = {
   todo: todoType;
 };
 const props = defineProps<Props>();
+
+type Emits = {
+  (event: "toggleIsChecked", id: string): void;
+};
+const emit = defineEmits<Emits>();
+
+const clickHandle = () => {
+  emit("toggleIsChecked", props.todo.id);
+};
 </script>
 
 <template>
@@ -16,10 +25,7 @@ const props = defineProps<Props>();
       {{ props.todo.text }} / {{ props.todo.date }}
     </div>
     <div class="todo-buttons">
-      <CheckButton
-        @click="props.todo.isChecked = !props.todo.isChecked" 
-        :isChecked="todo.isChecked"
-      />
+      <CheckButton @click="clickHandle" :isChecked="todo.isChecked" />
       <TrashBinButton @click="$emit('removeTodo', props.todo.id)" />
     </div>
   </li>

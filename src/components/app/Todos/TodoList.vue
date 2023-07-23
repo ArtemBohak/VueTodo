@@ -1,25 +1,35 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 import { todos, todoType } from "../../../../staticData/todos";
+import { useTodoStore } from "../../../store/TodoStore";
+import { filterTodos } from "../../../helpers/FilterTodos";
 
 import TodoListItem from "./TodoListItem.vue";
 import AddButton from "../../UI/Buttons/AddButton.vue";
 import AddTodoModal from "../../UI/ModalWindows/AddTodoModal.vue";
 
-// type Props = {
-//   searchFilter:
-// }
+const todoStore = useTodoStore();
 
 const reactiveTodos = ref<todoType[]>(todos);
+const computedTodoList = computed(() =>
+  filterTodos(reactiveTodos.value, todoStore.filter, todoStore.searchInputRef)
+);
+
 const addTodoHandle = (todo: todoType): void => {
   reactiveTodos.value.push(todo);
+  closeModal();
 };
 
 const isShown = ref<boolean>(false);
 
 const removeTodo = (id: string) => {
   reactiveTodos.value = reactiveTodos.value.filter((item) => item.id !== id);
+};
+
+const toggleIsChecked = (id: string) => {
+  const todo = reactiveTodos.value.find((todo) => todo.id === id) as todoType;
+  todo.isChecked = !todo.isChecked;
 };
 
 const closeModal = () => {
@@ -31,8 +41,9 @@ const closeModal = () => {
   <Transition name="todo-list-appear" appear>
     <TransitionGroup name="todo-list" class="todo-list" tag="ul">
       <TodoListItem
+        @toggleIsChecked="toggleIsChecked"
         @removeTodo="removeTodo"
-        v-for="todo of reactiveTodos"
+        v-for="todo of computedTodoList"
         :key="todo.id"
         :todo="todo"
       />
@@ -48,17 +59,23 @@ const closeModal = () => {
 
 <style scoped>
 .todo-list {
-  @apply flex justify-center items-center flex-col mt-12;
+  @apply flex justify-center items-center flex-col mt-12 relative;
 }
 
+.todo-list-move,
 .todo-list-enter-active,
 .todo-list-leave-active {
-  transition: all 0.5s ease;
+  transition: all 0.2s cubic-bezier(0.55, 0, 0.1, 1);
 }
+
 .todo-list-enter-from,
 .todo-list-leave-to {
   opacity: 0;
-  transform: translateX(150px);
+  /* transform: translateX(150px); */
+}
+
+.todo-list-leave-active {
+  position: absolute;
 }
 
 .todo-list-appear-enter-active,

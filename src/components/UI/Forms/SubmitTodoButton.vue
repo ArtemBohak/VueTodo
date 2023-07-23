@@ -1,9 +1,13 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+type Props = {
+  title: string;
+};
+
+const props = defineProps<Props>();
+</script>
 
 <template>
-  <button type="submit" class="submit-button">
-    <slot />
-  </button>
+  <button type="submit" class="submit-button">{{ props.title }}</button>
 </template>
 
 <style lang="css" scoped>

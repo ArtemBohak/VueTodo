@@ -22,7 +22,6 @@ const onInput = (event: Event) => {
       class="add-todo-input"
       type="date"
     />
-    {{ props.modelValue }}
   </div>
 </template>
 

@@ -1,16 +1,14 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import TodoList from "./components/app/Todos/TodoList.vue";
-import SearchFilter from "./components/UI/SearchFilter/SearchFilter.vue";
+import SearchFilter from "./components/app/SearchFilter/SearchFilter.vue";
 
-const searchFilter = ref<string>('all')
 </script>
 
 <template>
   <div class="wrapper">
     <div class="todo-app">
       <SearchFilter />
-      <TodoList :searchFilter="searchFilter" />
+      <TodoList />
     </div>
   </div>
 </template>

@@ -1,16 +1,30 @@
 <script setup lang="ts">
-type Props = { options: string[] };
+export type FiltersType = "all" | "completed" | "uncompleted";
 
+type Props = { options: string[]; modelValue: FiltersType };
 const props = withDefaults(defineProps<Props>(), {
-  options: () => ["all", "completed", "uncompleted"],
+  options: () => ["all", "completed", "uncompleted"] as FiltersType[],
 });
 
+type Emits = {
+  (event: "update:modelValue", value: string): void;
+};
+const emit = defineEmits<Emits>();
 
+const onChangeHandle = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  const newValue = target.value;
+  emit("update:modelValue", newValue);
+};
 </script>
 
 <template>
-  <select name="filters">
-    <option v-for="item of props.options" :key="item">
+  <select @change="onChangeHandle" :value="props.modelValue" name="filters">
+    <option
+      v-for="item of props.options"
+      :value="item"
+      :key="item"
+    >
       {{ item.charAt(0).toUpperCase() + item.slice(1) }}
     </option>
   </select>
