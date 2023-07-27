@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Transition } from "vue";
+
 import CloseModalButton from "./CloseModalButton.vue";
 
 type Props = { isShown: boolean };

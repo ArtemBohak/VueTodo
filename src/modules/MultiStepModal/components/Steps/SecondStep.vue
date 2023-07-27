@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { todoType } from "staticData/todos";
+import { TodoDataType } from "../../helpers/composables/useInputs";
 
 import AddTodoDate from "@/components/UI/Inputs/AddTodoDate.vue";
 
@@ -11,7 +11,7 @@ const props = defineProps<Props>();
 type Emits = {
   (
     event: "changeReactiveInputs",
-    todoData: Partial<todoType & { category: string }>
+    todoData: TodoDataType
   ): void;
 };
 const emit = defineEmits<Emits>();

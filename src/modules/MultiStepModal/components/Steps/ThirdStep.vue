@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { todoType } from "staticData/todos";
+import { TodoDataType } from "../../helpers/composables/useInputs";
 
 import CustomSelect from "@/components/UI/Selects/CustomSelect.vue";
 
@@ -9,10 +9,7 @@ type Props = {
 const props = defineProps<Props>();
 
 type Emits = {
-  (
-    event: "changeReactiveInputs",
-    todoData: Partial<todoType & { category: string }>
-  ): void;
+  (event: "changeReactiveInputs", todoData: TodoDataType): void;
 };
 const emit = defineEmits<Emits>();
 </script>
