@@ -1,7 +1,7 @@
 <script setup lang="ts">
 export type FiltersType = "all" | "completed" | "uncompleted";
 
-type Props = { options: string[]; modelValue: FiltersType };
+type Props = { options: string[]; modelValue: FiltersType | string };
 const props = withDefaults(defineProps<Props>(), {
   options: () => ["all", "completed", "uncompleted"] as FiltersType[],
 });
@@ -19,7 +19,7 @@ const onChangeHandle = (event: Event) => {
 </script>
 
 <template>
-  <select @change="onChangeHandle" :value="props.modelValue" name="filters">
+  <select @change="onChangeHandle" :value="props.modelValue" name="filters" class="custom-select">
     <option
       v-for="item of props.options"
       :value="item"
@@ -31,7 +31,7 @@ const onChangeHandle = (event: Event) => {
 </template>
 
 <style lang="css" scoped>
-select {
-  @apply py-1 px-2 text-lg border rounded-sm shadow-md;
+.custom-select {
+  @apply py-1 px-2 text-lg border rounded-sm shadow-md w-full;
 }
 </style>

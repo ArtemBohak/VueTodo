@@ -10,6 +10,7 @@ const emit = defineEmits<Emits>();
 const onInput = (event: Event) => {
   const target = event.target as HTMLInputElement;
   const newValue = target.value.split("-").reverse().join("-");
+  console.log(newValue)
   emit("update:modelValue", newValue);
 };
 </script>
@@ -19,10 +20,14 @@ const onInput = (event: Event) => {
     <input
       @input="onInput"
       :value="props.modelValue"
-      class="add-todo-input"
+      class="date-input"
       type="date"
     />
   </div>
 </template>
 
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+.date-input {
+  @apply text-xl rounded-sm w-full py-1 px-2 shadow-md;
+}
+</style>

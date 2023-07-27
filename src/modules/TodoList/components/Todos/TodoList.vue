@@ -1,39 +1,39 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 
-import { todos, todoType } from "../../../../staticData/todos";
-import { useTodoStore } from "../../../store/TodoStore";
-import { filterTodos } from "../../../helpers/FilterTodos";
+import { todos, todoType } from "../../../../../staticData/todos";
+import { filterTodos } from "../../helpers/FilterTodos";
+import { FiltersType } from "../../../../components/UI/Selects/CustomSelect.vue";
 
 import TodoListItem from "./TodoListItem.vue";
-import AddButton from "../../UI/Buttons/AddButton.vue";
-import AddTodoModal from "../../UI/ModalWindows/AddTodoModal.vue";
+import AddTodoModal from "../../../MultiStepModal/AddTodoModule.vue";
 
-const todoStore = useTodoStore();
+type Props = {
+  filter: FiltersType;
+  searchInputRef: string;
+};
+const props = withDefaults(defineProps<Props>(), {
+  filter: "all",
+  searchInputRef: "",
+});
 
 const reactiveTodos = ref<todoType[]>(todos);
+
 const computedTodoList = computed(() =>
-  filterTodos(reactiveTodos.value, todoStore.filter, todoStore.searchInputRef)
+  filterTodos(reactiveTodos.value, props.filter, props.searchInputRef)
 );
-
-const addTodoHandle = (todo: todoType): void => {
-  reactiveTodos.value.push(todo);
-  closeModal();
-};
-
-const isShown = ref<boolean>(false);
 
 const removeTodo = (id: string) => {
   reactiveTodos.value = reactiveTodos.value.filter((item) => item.id !== id);
 };
 
+const addTodo = (todo: todoType) => {
+  reactiveTodos.value.push(todo);
+};
+
 const toggleIsChecked = (id: string) => {
   const todo = reactiveTodos.value.find((todo) => todo.id === id) as todoType;
   todo.isChecked = !todo.isChecked;
-};
-
-const closeModal = () => {
-  isShown.value = false;
 };
 </script>
 
@@ -41,20 +41,15 @@ const closeModal = () => {
   <Transition name="todo-list-appear" appear>
     <TransitionGroup name="todo-list" class="todo-list" tag="ul">
       <TodoListItem
+        v-for="todo of computedTodoList"
         @toggleIsChecked="toggleIsChecked"
         @removeTodo="removeTodo"
-        v-for="todo of computedTodoList"
         :key="todo.id"
         :todo="todo"
       />
     </TransitionGroup>
   </Transition>
-  <AddButton @click="isShown = !isShown" />
-  <AddTodoModal
-    @addTodo="addTodoHandle"
-    @closeModal="closeModal"
-    :isShown="isShown"
-  />
+  <AddTodoModal @addTodo="addTodo" />
 </template>
 
 <style scoped>

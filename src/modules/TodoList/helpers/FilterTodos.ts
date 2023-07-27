@@ -1,4 +1,4 @@
-import { FiltersType } from "@/components/UI/Selects/SelectFilter.vue";
+import { FiltersType } from "../../../components/UI/Selects/CustomSelect.vue";
 import { todoType } from "staticData/todos";
 
 export const filterTodos = (
@@ -7,7 +7,10 @@ export const filterTodos = (
   subString: string = ""
 ) => {
   const helpFilter = (todo: todoType) => {
-    return todo.text.toLowerCase().trim().includes(subString.toLowerCase().trim());
+    return todo.text
+      .toLowerCase()
+      .trim()
+      .includes(subString.toLowerCase().trim());
   };
 
   switch (filter) {

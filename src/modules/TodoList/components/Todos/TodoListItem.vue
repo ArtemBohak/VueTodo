@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { todoType } from "staticData/todos";
+import { todoType } from "../../../../../staticData/todos";
 
-import CheckButton from "../../UI/Buttons/CheckButton.vue";
-import TrashBinButton from "../../UI/Buttons/TrashBinButton.vue";
+import CheckButton from "../../../../components/UI/Buttons/CheckButton.vue";
+import TrashBinButton from "../../../../components/UI/Buttons/TrashBinButton.vue";
 
 type Props = {
   todo: todoType;
@@ -10,13 +10,10 @@ type Props = {
 const props = defineProps<Props>();
 
 type Emits = {
+  (event: "removeTodo", id: string): void;
   (event: "toggleIsChecked", id: string): void;
 };
 const emit = defineEmits<Emits>();
-
-const clickHandle = () => {
-  emit("toggleIsChecked", props.todo.id);
-};
 </script>
 
 <template>
@@ -25,7 +22,10 @@ const clickHandle = () => {
       {{ props.todo.text }} / {{ props.todo.date }}
     </div>
     <div class="todo-buttons">
-      <CheckButton @click="clickHandle" :isChecked="todo.isChecked" />
+      <CheckButton
+        @click="emit('toggleIsChecked', props.todo.id)"
+        :isChecked="todo.isChecked"
+      />
       <TrashBinButton @click="$emit('removeTodo', props.todo.id)" />
     </div>
   </li>
