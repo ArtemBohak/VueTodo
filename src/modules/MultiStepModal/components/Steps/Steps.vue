@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { TodoDataType } from "../../helpers/composables/useInputs";
+import { TodoDataType } from "../../helpers/composables/useTodoModalInputs";
 
 import FirstStep from "./FirstStep.vue";
 import SecondStep from "./SecondStep.vue";

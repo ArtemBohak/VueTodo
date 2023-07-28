@@ -3,7 +3,7 @@ import { ref } from "vue";
 import { v4 as uuidv4 } from "uuid";
 
 import { todoType } from "staticData/todos";
-import { useInputs } from "./helpers/composables/useInputs";
+import { useTodoModalInputs } from "./helpers/composables/useTodoModalInputs";
 
 import CustomModal from "@/components/UI/ModalWindows/CustomModal/CustomModal.vue";
 import OpenModalButton from "@/components/UI/Buttons/OpenModalButton.vue";
@@ -16,16 +16,11 @@ type Emits = {
 const emit = defineEmits<Emits>();
 
 const isShown = ref<boolean>(false);
-const currentStepIndex = ref<number>(1);
 const { reactiveInputs, changeReactiveInputs, resetReactiveInputs } =
-  useInputs();
+  useTodoModalInputs();
 
 const toggleIsShown = () => {
   isShown.value = !isShown.value;
-};
-
-const changeCurrentStepIndex = (step: number) => {
-  currentStepIndex.value = step;
 };
 
 const onSubmitHandle = () => {
@@ -47,12 +42,12 @@ const onSubmitHandle = () => {
     <StepperForm
       :isValid="false"
       :stepsLength="3"
-      @changeCurrentStepIndex="changeCurrentStepIndex"
       @onSubmit="onSubmitHandle"
+      v-slot="slotProps"
     >
       <Steps
+        :currentStepIndex="slotProps.currentStepIndex"
         :reactiveInputs="reactiveInputs"
-        :currentStepIndex="currentStepIndex"
         @changeReactiveInputs="changeReactiveInputs"
       />
     </StepperForm>

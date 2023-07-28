@@ -16,33 +16,20 @@ type Emits = {
 const emit = defineEmits<Emits>();
 
 const { goBack, goNext, currentStepIndex } = useStepper(props.stepsLength);
-
-const goBackHandle = () => {
-  const oldValue = currentStepIndex.value;
-  if (goBack()) {
-    emit("changeCurrentStepIndex", oldValue - 1);
-  }
-};
-const goNextHandle = () => {
-  const oldValue = currentStepIndex.value;
-  if (goNext()) {
-    emit("changeCurrentStepIndex", oldValue + 1);
-  }
-};
 </script>
 
 <template>
   <form @submit.prevent="emit('onSubmit')">
     <h1>{{ currentStepIndex }} / {{ props.stepsLength }}</h1>
     <div class="modal-step">
-      <slot></slot>
+      <slot :currentStepIndex="currentStepIndex"></slot>
     </div>
     <div class="dumb-buttons">
       <DumbButton
         type="button"
         v-if="currentStepIndex !== 1"
         title="Back"
-        @click="goBackHandle"
+        @click="goBack"
       />
       <!-- <DumbButton
         :type="currentStepIndex === 3 ? 'submit' : 'button'"
@@ -52,7 +39,7 @@ const goNextHandle = () => {
       <DumbButton
         type="button"
         v-if="currentStepIndex !== 3"
-        @click="goNextHandle"
+        @click="goNext"
         title="Next"
       />
       <DumbButton type="submit" v-if="currentStepIndex === 3" title="Add" />

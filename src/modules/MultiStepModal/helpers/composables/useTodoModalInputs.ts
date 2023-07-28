@@ -4,7 +4,7 @@ import { todoType } from "staticData/todos";
 
 export type TodoDataType = Partial<todoType & { category: string }>;
 
-export const useInputs = () => {
+export const useTodoModalInputs = () => {
   const reactiveInputs = reactive({
     todoText: "",
     todoDate: "",

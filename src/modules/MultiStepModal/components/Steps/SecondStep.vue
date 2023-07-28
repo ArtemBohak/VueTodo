@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { TodoDataType } from "../../helpers/composables/useInputs";
+import { TodoDataType } from "../../helpers/composables/useTodoModalInputs";
 
 import AddTodoDate from "@/components/UI/Inputs/AddTodoDate.vue";
 
